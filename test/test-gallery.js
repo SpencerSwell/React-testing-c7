@@ -4,6 +4,7 @@ import chai from 'chai';
 
 const should = chai.should();
 
+import Image from '../js/components/image';
 import Gallery from '../js/components/gallery'; 
 
 describe('Gallery component', function() {
@@ -15,14 +16,15 @@ const desc = 'pretty picture';
 
 const renderer = TestUtils.createRenderer();
 
-renderer.render(<Gallery images= {[{url:"http://www.lovethispic.com/uploaded_images/35108-Pretty-Halloween-Bokeh.jpg", desc:"pretty picture"}]}/>);
-
+renderer.render(<Gallery images= {[{url:"http://www.lovethispic.com/uploaded_images/35108-Pretty-Halloween-Bokeh.jpg", description:"pretty picture"}]}/>);
 const result = renderer.getRenderOutput();
 result.props.className.should.equal('gallery');
-result.props.images.url.should.equal(url);
-result.props.images.desc.should.equal(desc);
+result.props.children[0].props.url.should.equal(url);
+result.props.children[0].props.description.should.equal(desc);
+result.props.children[0].type.should.equal(Image);
+result.props.children.length.should.equal(1);
 
-console.log(result.props);
+
 
 })
 
